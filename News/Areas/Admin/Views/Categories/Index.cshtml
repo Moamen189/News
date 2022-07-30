@@ -1,6 +1,52 @@
-﻿
+﻿@using News.Models
+@model IEnumerable<Catogery>
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
     ViewBag.Title = "Categories management";
+    ViewBag.BoxTitle = "Show Categories";
 
 }
+
+
+<div>
+ <a asp-action="Create" class="btn btn-primary text-white " asp-controller ="Categories"  >New</a>
+
+</div>
+
+<br />
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>@Html.DisplayNameFor(x=> x.Id)</th>
+        <th>@Html.DisplayNameFor(x=> x.Name)</th>
+
+        <th>@Html.DisplayNameFor(x=> x.Description)</th>
+        <th>Operations</th>
+
+
+    </tr>
+
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+
+            <td>@item.Description</td>
+
+            <td>Operations</td>
+            <td>
+                <a asp-action="Edit" class="btn btn-success text-white" asp-controller ="Categories" asp-route-id="@item,id">Modify</a>
+                <a asp-action="Delete" class="btn btn-danger text-white" asp-controller ="Categories" asp-route-id="@item,id">Delete</a>
+
+                <a>Delete</a>
+
+            </td>
+
+
+
+            </tr>
+
+    }
+    
+</table>
