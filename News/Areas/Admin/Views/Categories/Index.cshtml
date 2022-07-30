@@ -1,5 +1,7 @@
 ﻿@using News.Models
 @model IEnumerable<Catogery>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
     ViewBag.Title = "Categories management";

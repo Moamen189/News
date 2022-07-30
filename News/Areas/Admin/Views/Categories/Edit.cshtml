@@ -1,0 +1,33 @@
+﻿@using News.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model Catogery
+@{
+    Layout = "~/Views/Shared/_Admin.cshtml";
+    ViewBag.Title = "Categories management";
+    ViewBag.BoxTitle = "Create New Categories";
+
+}
+
+<form asp-action="Edit" asp-Controller="Categories" method="post">
+    @Html.HiddenFor(x=>x.Id)
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input  asp-for="Name" class="form-control"/>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+     <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input  asp-for="Description" class="form-control"/>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+      
+        <input  type="submit" class="btn btn-primary" value="save"/>
+       
+    </div>
+
+</form>

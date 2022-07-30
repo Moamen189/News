@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using News.Models;
+using NToastNotify;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 });
             
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddMvc().AddNToastNotifyToastr(new NToastNotify.ToastrOptions()
+{
+    ProgressBar = true,
+    PreventDuplicates = true,
+    CloseButton = true,
+    PositionClass = ToastPositions.TopRight
+});
 
 var app = builder.Build();
 
