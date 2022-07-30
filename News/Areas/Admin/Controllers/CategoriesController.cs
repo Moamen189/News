@@ -31,10 +31,13 @@ namespace News.Areas.Admin.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
 
         public IActionResult Create(Catogery catogery)
         {
             _db.Catogeries.Add(catogery);
+            _toastNotification.AddSuccessToastMessage("Data Created Succeflly");
+
             _db.SaveChanges();
             return RedirectToAction("Index");
             //return View();
@@ -42,10 +45,13 @@ namespace News.Areas.Admin.Controllers
 
         [HttpGet]
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int? id)
         {
+            if(id == null)
+            {
+                return NotFound();
+            }
             var Category = _db.Catogeries.Find(id);
-            _toastNotification.AddSuccessToastMessage("Data Submitted Succeflly");
             //_db.SaveChanges();
             //return RedirectToAction("Index");
             return View(Category);
@@ -53,13 +59,57 @@ namespace News.Areas.Admin.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
 
         public IActionResult Edit(Catogery catogery)
         {
-            _db.Catogeries.Update(catogery);
-            _db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                _db.Catogeries.Update(catogery);
+                 _db.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Data Submitted Succeflly");
+
+                //return View();
+            }
             return RedirectToAction("Index");
-            //return View();
+        }
+
+
+        [HttpGet]
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var Category = _db.Catogeries.Find(id);
+
+            //_toastNotification.AddSuccessToastMessage("Data Submitted Succeflly");
+            //_db.SaveChanges();
+            //return RedirectToAction("Index");
+            return View(Category);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id, Catogery catogery)
+        {
+            if (ModelState.IsValid)
+            {
+                var Category = _db.Catogeries.Find(id);
+                _db.Catogeries.Remove(catogery);
+
+                //_toastNotification.AddSuccessToastMessage("Data Submitted Succeflly");
+                _db.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Data Deleted Succeflly");
+
+                //return View(Category);
+
+            }
+            return RedirectToAction("Index");
+
         }
     }
 }
